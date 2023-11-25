@@ -48,15 +48,15 @@ namespace imagledit
 				else if(s[0] == '/' && del.ContainsKey(s.Remove(0, 1)))
 				        del[s.Remove(0, 1)] = true;
 				else if(File.Exists(s)) {
-					Path = s; Console.WriteLine("...File found!: \\'" + Path + "\\'"); }
+					Path = s; Console.WriteLine("...File found!: '" + Path + "'"); }
 				else
-					Console.WriteLine("!!! Unkown argument/file not exists/unkown command: \\'" + s + "\\'");
+					Console.WriteLine("!!! Unkown argument/file not exists/unkown command: '" + s + "'");
 			}
 			if(File.Exists(Path))
-				Console.WriteLine("DONE! File: \\'" + Path + "\\'");
+				Console.WriteLine("DONE! File: '" + Path + "'");
 			else
 			{
-				Console.WriteLine("FAIL! Not found file: \\'" + Path + "\\'");
+				Console.WriteLine("FAIL! Not found file: '" + Path + "'");
 				Thread.Sleep(5000);
 				Environment.Exit(0);
 			}
@@ -66,7 +66,7 @@ namespace imagledit
 				file.Add(s);
 			Console.WriteLine("DONE!\nEdit file...\nStep 1");
 			List<int> del2 = new List<int> { };
-			for(int i = int.Parse(file[file.Count - 2]); i < file.Count - 2; i++)
+			for(int i = int.Parse(file[file.Count - 2].Split(' ')[0]); i < file.Count - 2; i++)
 			{
 				string[] splt = file[i].Split(' ');
 				if(del.ContainsKey(splt[0]) && del[splt[0]])

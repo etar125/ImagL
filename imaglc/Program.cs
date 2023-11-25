@@ -50,15 +50,15 @@ namespace imaglc
 				else if(s == "/r" || s == "/release") {
 					debug = false; Console.WriteLine("...Release!"); }
 				else if(File.Exists(s)) {
-					path = s; Console.WriteLine("...File found!: \\'" + path + "\\'"); }
+					path = s; Console.WriteLine("...File found!: '" + path + "'"); }
 				else
-					Console.WriteLine("!!! Unkown argument(or file not exists): \\'" + s + "\\'");
+					Console.WriteLine("!!! Unkown argument(or file not exists): '" + s + "'");
 			}
 			if(File.Exists(path))
-				Console.WriteLine("DONE! File: \\'" + path + "\\'");
+				Console.WriteLine("DONE! File: '" + path + "'");
 			else
 			{
-				Console.WriteLine("FAIL! Not found file: \\'" + path + "\\'");
+				Console.WriteLine("FAIL! Not found file: '" + path + "'");
 				Thread.Sleep(5000);
 				Environment.Exit(0);
 			}
@@ -132,7 +132,7 @@ namespace imaglc
 					gen += " /" + use.ElementAt(i).Key;
 			Console.WriteLine("...Arguments done!");
 			a.StartInfo.FileName = @"imagledit";
-			a.StartInfo.Arguments = "/s imaglmod.cs" + gen;
+			a.StartInfo.Arguments = "imaglmod.cs" + gen;
 			Console.WriteLine("Start ImaglL Code Editor...");
 			a.Start();
 			Console.WriteLine("...");
