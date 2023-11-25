@@ -104,12 +104,27 @@ namespace imagl
 					}
 					else if(a.Cmnd == Command.CMS.Clear)
 						Console.Clear();
+					else if(a.Cmnd == Command.CMS.Title)
+						Console.Title = ConvertString(a.args[0]);
+					else if(a.Cmnd == Command.CMS.Goto)
+					{
+						for(int j = 0; j < app.Length; j++)
+						{
+							if(app[j] == Command.CMS.Label && app[j].args[0] == a.args[0])
+							{
+								i = j + 1;
+								break;
+							}
+						}
+					}
 				}
 			}
 		}
 	}
 }
 /*
+goto 25 107 118
+title 23 105 107
 clear 22 103 105
 input 21 95 103
 set 20 86 95
