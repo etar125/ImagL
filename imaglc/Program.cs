@@ -37,7 +37,7 @@ namespace imaglc
         
         public static void Main(string[] args)
 		{
-        	Console.WriteLine("ImageL Compiler v0.01\nBy Etar125\n\nChecking arguments...");
+        	Console.WriteLine("ImageL Compiler v0.10\nBy Etar125\n\nChecking arguments...");
         	string path = "main.png";
         	bool debug = true;
 			var handle = GetConsoleWindow();
@@ -114,7 +114,7 @@ namespace imaglc
 			Console.WriteLine("Edit ImagL code...");
 			string[] file = File.ReadAllLines("imagl.cs");
 			file[33] = "\t\tpublic static Command[] app = { " + string.Join(", ", cms.ToArray()) + " };";
-			File.WriteAllLines("imagl.cs", file);
+			File.WriteAllLines("imaglmod.cs", file);
 			Console.WriteLine("DONE!");
 			Console.WriteLine("Start MSBuild...");
 			Process a = new Process();

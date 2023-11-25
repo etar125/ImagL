@@ -32,7 +32,7 @@ namespace imagl
 	class Program
 	{
 		public static Command[] app = { };
-		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.05" } };
+		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.06" } };
 		public static string ConvertString(string str)
 		{
 			string result = "";
