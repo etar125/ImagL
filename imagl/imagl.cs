@@ -34,7 +34,7 @@ namespace imagl
 	class Program
 	{
 		public static Command[] app = { };
-		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.11" } };
+		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.15" } };
 		public static string ConvertString(string str)
 		{
 			string result = "";
@@ -45,6 +45,12 @@ namespace imagl
 					if(str[i] == '\\' && str[i + 1] == '%')
 					{
 						result += "%";
+						i++;
+						continue;
+					}
+					if(str[i] == '\\' && str[i + 1] == 'n')
+					{
+						result += "\n";
 						i++;
 						continue;
 					}
@@ -71,7 +77,7 @@ namespace imagl
 					}
 					result += str[i];
 				}
-				catch(Exception ex) { return result + ex.Message; }
+				catch(Exception ex) { return result; }
 			}
 			return result;
 		}
@@ -112,7 +118,7 @@ namespace imagl
 						{
 							if(app[j].Cmnd == Command.CMS.Label && app[j].args[0] == a.args[0])
 							{
-								i = j + 1;
+								i = j;
 								break;
 							}
 						}
@@ -123,13 +129,13 @@ namespace imagl
 	}
 }
 /*
-goto 25 107 118
-title 23 105 107
-clear 22 103 105
-input 21 95 103
-set 20 86 95
-pause 19 84 86
-print 18 82 84
+goto 25 113 124
+title 23 111 113
+clear 22 109 111
+input 21 101 109
+set 20 94 101
+pause 19 92 94
+print 18 90 92
 
-100 105
+100 35
  */

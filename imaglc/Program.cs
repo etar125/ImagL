@@ -29,16 +29,16 @@ namespace imaglc
 		
         public static char get(int num)
         {
-            if (num == 0)
-                return ' ';
-            if (num == 1)
-                return '\n';
-            return "**qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNMйцукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ1234567890!@#$%^&*()_+-={}[];:'\"\\|/,.<>?`~"[num];
+        	if(num == 0)
+        		return ' ';
+            if (num != 1)
+            	return "**qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNMйцукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ1234567890!@#$%^&*()_+-={}[];:'\"\\|/,.<>?`~"[num];
+            return '0';
         }
         
         public static void Main(string[] args)
 		{
-        	Console.WriteLine("ImagL Compiler v0.16\nBy Etar125\n\nChecking arguments...");
+        	Console.WriteLine("ImagL Compiler v0.21\nBy Etar125\n\nChecking arguments...");
         	Dictionary<string, bool> use = new Dictionary<string, bool> { { "print", true }, { "set", true }, { "pause", true }, { "input", true }, { "clear", true }, { "title", true }, { "goto", true } };
         	string path = "main.png";
         	bool debug = true;
@@ -80,7 +80,12 @@ namespace imaglc
 							if(clr == Color.FromArgb(255, 0, 0, 0))
 								break;
 							if(clr.R == 64)
-								result += get(clr.G);
+							{
+								if(clr.G == 1)
+									result += "\\\\n";
+								else
+									result += get(clr.G);
+							}
 						}
 						cms.Add("new Command(Command.CMS.Print, new string[] { \"" + result + "\" })");
 					}
@@ -95,9 +100,34 @@ namespace imaglc
 							if(clr == Color.FromArgb(255, 0, 0, 0))
 								break;
 							if(clr.R == 64)
-								result += get(clr.G);
+							{
+								if(clr.G == 1)
+									result += "\\\\n";
+								else
+									result += get(clr.G);
+							}
 						}
 						cms.Add("new Command(Command.CMS.Title, new string[] { \"" + result + "\" })");
+					}
+					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 0, 255, 255)) // Input
+					{
+						if(use["input"])
+							use["input"] = false;
+						string result = "";
+						for(int x2 = x + 1; x2 < bmp.Width; x2++)
+						{
+							Color clr = bmp.GetPixel(x2, y);
+							if(clr == Color.FromArgb(255, 0, 0, 0))
+								break;
+							if(clr.R == 64)
+							{
+								if(clr.G == 1)
+									result += "\\\\n";
+								else
+									result += get(clr.G);
+							}
+						}
+						cms.Add("new Command(Command.CMS.Input, new string[] { \"" + result + "\" })");
 					}
 					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 128, 0, 128)) // Goto
 					{
@@ -110,7 +140,12 @@ namespace imaglc
 							if(clr == Color.FromArgb(255, 0, 0, 0))
 								break;
 							if(clr.R == 64)
-								result += get(clr.G);
+							{
+								if(clr.G == 1)
+									result += "\\\\n";
+								else
+									result += get(clr.G);
+							}
 						}
 						cms.Add("new Command(Command.CMS.Goto, new string[] { \"" + result + "\" })");
 					}
@@ -123,7 +158,12 @@ namespace imaglc
 							if(clr == Color.FromArgb(255, 0, 0, 0))
 								break;
 							if(clr.R == 64)
-								result += get(clr.G);
+							{
+								if(clr.G == 1)
+									result += "\\\\n";
+								else
+									result += get(clr.G);
+							}
 						}
 						cms.Add("new Command(Command.CMS.Label, new string[] { \"" + result + "\" })");
 					}
@@ -131,7 +171,7 @@ namespace imaglc
 					{
 						if(use["clear"])
 							use["clear"] = false;
-						cms.Add("new Command(Command.CMS.Clear, null");
+						cms.Add("new Command(Command.CMS.Clear, null)");
 					}
 					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 0, 255, 0)) // Set
 					{
@@ -150,12 +190,22 @@ namespace imaglc
 									if(clr2 == Color.FromArgb(255, 0, 0, 0))
 										break;
 									if(clr2.R == 64)
-										value += get(clr2.G);
+									{
+										if(clr2.G == 1)
+											value += "\\n";
+										else
+											value += get(clr2.G);
+									}
 								}
 								break;
 							}
 							if(clr.R == 64)
-								name += get(clr.G);
+							{
+								if(clr.G == 1)
+									name += "\\n";
+								else
+									name += get(clr.G);
+							}
 						}
 						cms.Add("new Command(Command.CMS.Set, new string[] { \"" + name + "\", \"" + value + "\" })");
 					}
@@ -170,7 +220,7 @@ namespace imaglc
 			Console.WriteLine("DONE!");
 			Console.WriteLine("Edit ImagL code...");
 			string[] file = File.ReadAllLines("imagl.cs");
-			file[33] = "\t\tpublic static Command[] app = { " + string.Join(", ", cms.ToArray()) + " };";
+			file[int.Parse(file[file.Length - 2].Split(' ')[1])] = "\t\tpublic static Command[] app = { " + string.Join(", ", cms.ToArray()) + " };";
 			File.WriteAllLines("imaglmod.cs", file);
 			Console.WriteLine("DONE!");
 			Process a = new Process();

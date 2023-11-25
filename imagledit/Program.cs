@@ -27,6 +27,9 @@ namespace imagledit
 			{ "print", false },
 			{ "pause", false },
 			{ "set", false },
+			{ "input", false },
+			{ "goto", false },
+			{ "clear", false },
 		};
 		
 		public static List<string> Remove(List<string> ara, int strt, int end)
