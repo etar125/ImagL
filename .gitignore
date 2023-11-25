@@ -1,6 +1,8 @@
 imagl/bin
 imaglc/bin
+imaglbuilder/bin
 imagledit/bin
 imagl/obj
 imaglc/obj
 imagledit/obj
+imaglbuilder/obj

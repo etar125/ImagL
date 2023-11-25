@@ -110,7 +110,7 @@ namespace imagl
 					{
 						for(int j = 0; j < app.Length; j++)
 						{
-							if(app[j] == Command.CMS.Label && app[j].args[0] == a.args[0])
+							if(app[j].Cmnd == Command.CMS.Label && app[j].args[0] == a.args[0])
 							{
 								i = j + 1;
 								break;
