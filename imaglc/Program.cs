@@ -39,7 +39,7 @@ namespace imaglc
         public static void Main(string[] args)
 		{
         	Console.WriteLine("ImageL Compiler v0.12\nBy Etar125\n\nChecking arguments...");
-        	Dictionary<string, bool> use = { { "print", true }, { "set", true }, { "pause", true } };
+        	Dictionary<string, bool> use = new Dictionary<string, bool> { { "print", true }, { "set", true }, { "pause", true } };
         	string path = "main.png";
         	bool debug = true;
 			var handle = GetConsoleWindow();

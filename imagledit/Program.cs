@@ -21,18 +21,18 @@ namespace imagledit
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 		
-		public string Path = "imagl.cs";
-		public Dictionary<string, bool> del = 
+		public static string Path = "imagl.cs";
+		public static Dictionary<string, bool> del = new Dictionary<string, bool>
 		{
 			{ "print", false },
 			{ "pause", false },
 			{ "set", false },
 		};
 		
-		public List<string> Remove(List<string> ara, int strt, int end)
+		public static List<string> Remove(List<string> ara, int strt, int end)
 		{
 			List<string> mod = ara;
-			for(strt; strt < end; strt++)
+			for(strt = strt; strt < end; strt++)
 				mod.RemoveAt(strt);
 			return mod;
 		}
