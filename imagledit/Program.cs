@@ -65,8 +65,10 @@ namespace imagledit
 			foreach(string s in File.ReadAllLines(Path))
 				file.Add(s);
 			List<string> mod = file;
-			for(int i = file.Count - 1; i < int.Parse(file[file.Count - 2]); i++)
+			List<int> del2 = new List<int> { };
+			for(int i = int.Parse(file[file.Count - 2]); i < file.Count - 2; i++)
 			{
+				string[] splt = file[i].Split(' ');
 				
 			}
 		}

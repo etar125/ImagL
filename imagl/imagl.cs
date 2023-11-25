@@ -99,9 +99,9 @@ namespace imagl
 	}
 }
 /*
-print 18 84 86
-pause 19 86 88
 set 20 88 96
+pause 19 86 88
+print 18 84 86
 
 101 105
  */
