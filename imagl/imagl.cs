@@ -32,14 +32,14 @@ namespace imagl
 	class Program
 	{
 		public static Command[] app = { };
-		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.07" } };
+		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.08" } };
 		public static string ConvertString(string str)
 		{
 			string result = "";
 			for(int i = 0; i < str.Length; i++)
 			{
-				//try
-				//{
+				try
+				{
 					if(str[i] == '\\' && str[i + 1] == '%')
 					{
 						result += "%";
@@ -68,9 +68,10 @@ namespace imagl
 							break;
 						}
 					}
-					result += str[i];
-				//}
-				//catch(Exception ex) { return ex.Message; }
+					try { result += str[i]; }
+					catch {}
+				}
+				catch(Exception ex) { return result + ex.Message; }
 			}
 			return result;
 		}
