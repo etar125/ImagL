@@ -1,12 +1,4 @@
 ﻿// etar125
-/*
-8
-set 25 95 103
-pause 26
-
-
-
- */
 using System;
 using System.Collections.Generic;
 
@@ -106,3 +98,10 @@ namespace imagl
 		}
 	}
 }
+/*
+set 18 88 96
+pause 19 86 88
+print 21 84 86
+
+101 105
+ */
