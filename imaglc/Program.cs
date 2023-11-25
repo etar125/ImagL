@@ -38,8 +38,8 @@ namespace imaglc
         
         public static void Main(string[] args)
 		{
-        	Console.WriteLine("ImagL Compiler v0.14\nBy Etar125\n\nChecking arguments...");
-        	Dictionary<string, bool> use = new Dictionary<string, bool> { { "print", true }, { "set", true }, { "pause", true } };
+        	Console.WriteLine("ImagL Compiler v0.16\nBy Etar125\n\nChecking arguments...");
+        	Dictionary<string, bool> use = new Dictionary<string, bool> { { "print", true }, { "set", true }, { "pause", true }, { "input", true }, { "clear", true }, { "title", true }, { "goto", true } };
         	string path = "main.png";
         	bool debug = true;
 			var handle = GetConsoleWindow();
@@ -83,6 +83,55 @@ namespace imaglc
 								result += get(clr.G);
 						}
 						cms.Add("new Command(Command.CMS.Print, new string[] { \"" + result + "\" })");
+					}
+					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 0, 0, 255)) // Title
+					{
+						if(use["title"])
+							use["title"] = false;
+						string result = "";
+						for(int x2 = x + 1; x2 < bmp.Width; x2++)
+						{
+							Color clr = bmp.GetPixel(x2, y);
+							if(clr == Color.FromArgb(255, 0, 0, 0))
+								break;
+							if(clr.R == 64)
+								result += get(clr.G);
+						}
+						cms.Add("new Command(Command.CMS.Title, new string[] { \"" + result + "\" })");
+					}
+					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 128, 0, 128)) // Goto
+					{
+						if(use["goto"])
+							use["goto"] = false;
+						string result = "";
+						for(int x2 = x + 1; x2 < bmp.Width; x2++)
+						{
+							Color clr = bmp.GetPixel(x2, y);
+							if(clr == Color.FromArgb(255, 0, 0, 0))
+								break;
+							if(clr.R == 64)
+								result += get(clr.G);
+						}
+						cms.Add("new Command(Command.CMS.Goto, new string[] { \"" + result + "\" })");
+					}
+					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 255, 128, 0)) // Label
+					{
+						string result = "";
+						for(int x2 = x + 1; x2 < bmp.Width; x2++)
+						{
+							Color clr = bmp.GetPixel(x2, y);
+							if(clr == Color.FromArgb(255, 0, 0, 0))
+								break;
+							if(clr.R == 64)
+								result += get(clr.G);
+						}
+						cms.Add("new Command(Command.CMS.Label, new string[] { \"" + result + "\" })");
+					}
+					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 255, 255, 128)) // Clear
+					{
+						if(use["clear"])
+							use["clear"] = false;
+						cms.Add("new Command(Command.CMS.Clear, null");
 					}
 					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 0, 255, 0)) // Set
 					{
