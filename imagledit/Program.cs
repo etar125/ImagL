@@ -29,6 +29,14 @@ namespace imagledit
 			{ "set", false },
 		};
 		
+		public List<string> Remove(List<string> ara, int strt, int end)
+		{
+			List<string> mod = ara;
+			for(strt; strt < end; strt++)
+				mod.RemoveAt(strt);
+			return mod;
+		}
+		
 		public static void Main(string[] args)
 		{
 			Console.WriteLine("ImageL Code Edit v0.01\nBy Etar125\n\nChecking arguments...");
@@ -53,7 +61,14 @@ namespace imagledit
 				Environment.Exit(0);
 			}
 			Console.WriteLine("Read file...");
-			string[] file = File.ReadAllLines(Path);
+			List<string> file = new List<string> { };
+			foreach(string s in File.ReadAllLines(Path))
+				file.Add(s);
+			List<string> mod = file;
+			for(int i = file.Count - 1; i < int.Parse(file[file.Count - 2]); i++)
+			{
+				
+			}
 		}
 	}
 }

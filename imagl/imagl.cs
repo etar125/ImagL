@@ -16,10 +16,10 @@ namespace imagl
 		
 		public enum CMS
 		{
-			Set, // +
-			Pause, // +
-			Input, 
 			Print, // +
+			Pause, // +
+			Set, // +
+			Input, 
 			Clear,
 			Title,
 			Empty, // +
@@ -99,9 +99,9 @@ namespace imagl
 	}
 }
 /*
-set 18 88 96
+print 18 84 86
 pause 19 86 88
-print 21 84 86
+set 20 88 96
 
 101 105
  */
