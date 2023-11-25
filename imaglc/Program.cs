@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Drawing;
 using System.Diagnostics;
+using System.Linq;
 
 namespace imaglc
 {
@@ -37,7 +38,8 @@ namespace imaglc
         
         public static void Main(string[] args)
 		{
-        	Console.WriteLine("ImageL Compiler v0.10\nBy Etar125\n\nChecking arguments...");
+        	Console.WriteLine("ImageL Compiler v0.12\nBy Etar125\n\nChecking arguments...");
+        	Dictionary<string, bool> use = { { "print", true }, { "set", true }, { "pause", true } };
         	string path = "main.png";
         	bool debug = true;
 			var handle = GetConsoleWindow();
@@ -69,6 +71,8 @@ namespace imaglc
 				{
 					if(bmp.GetPixel(x, y) == Color.FromArgb(255, 255, 0, 0)) // Print
 					{
+						if(use["print"])
+							use["print"] = false;
 						string result = "";
 						for(int x2 = x + 1; x2 < bmp.Width; x2++)
 						{
@@ -80,8 +84,10 @@ namespace imaglc
 						}
 						cms.Add("new Command(Command.CMS.Print, new string[] { \"" + result + "\" })");
 					}
-					if(bmp.GetPixel(x, y) == Color.FromArgb(255, 0, 255, 0)) // Set
+					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 0, 255, 0)) // Set
 					{
+						if(use["set"])
+							use["set"] = false;
 						string name = "";
 						string value = "";
 						for(int x2 = x + 1; x2 < bmp.Width; x2++)
@@ -106,6 +112,8 @@ namespace imaglc
 					}
 					else if(bmp.GetPixel(x, y) == Color.FromArgb(255, 255, 255, 0)) // Pause
 					{
+						if(use["pause"])
+							use["pause"] = false;
 						cms.Add("new Command(Command.CMS.Pause, null)");
 					}
 				}
@@ -116,8 +124,21 @@ namespace imaglc
 			file[33] = "\t\tpublic static Command[] app = { " + string.Join(", ", cms.ToArray()) + " };";
 			File.WriteAllLines("imaglmod.cs", file);
 			Console.WriteLine("DONE!");
-			Console.WriteLine("Start MSBuild...");
 			Process a = new Process();
+			Console.WriteLine("Edit file...");
+			string gen = "";
+			for(int i = 0; i < use.Count; i++)
+				if(use.ElementAt(i).Value == true)
+					gen += " /" + use.ElementAt(i).Key;
+			Console.WriteLine("...Arguments done!");
+			a.StartInfo.FileName = @"imagledit";
+			a.StartInfo.Arguments = "/s imaglmod.cs" + gen;
+			Console.WriteLine("Start ImaglL Code Editor...");
+			a.Start();
+			Console.WriteLine("...");
+			a.WaitForExit();
+			Console.WriteLine("DONE!");
+			Console.WriteLine("Start MSBuild...");
 			a.StartInfo.FileName = @"msb\msbuild";
 			a.StartInfo.Arguments = "compile.csproj /noconlog /nologo";
 			if(debug) a.StartInfo.Arguments += " /p:Configuration=Debug";
