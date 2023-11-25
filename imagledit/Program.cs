@@ -21,7 +21,7 @@ namespace imagledit
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 		
-		public static string Path = "imagl.cs";
+		public static string Path = "imaglmod.cs";
 		public static Dictionary<string, bool> del = new Dictionary<string, bool>
 		{
 			{ "print", false },
@@ -32,21 +32,23 @@ namespace imagledit
 		public static List<string> Remove(List<string> ara, int strt, int end)
 		{
 			List<string> mod = ara;
-			for(strt = strt; strt < end; strt++)
-				mod.RemoveAt(strt);
+			for(int i = end; i > strt; i--)
+				mod.RemoveAt(i);
 			return mod;
 		}
 		
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("ImageL Code Edit v0.02\nBy Etar125\n\nChecking arguments...");
+			Console.WriteLine("ImagL Code Edit v0.05\nBy Etar125\n\nChecking arguments...");
 			var handle = GetConsoleWindow();
 			foreach(string s in args)
 			{
 				if(s == "/s" || s == "/silent") {
 					ShowWindow(handle, SW_HIDE); Console.WriteLine("...Silent!"); }
 				else if(s[0] == '/' && del.ContainsKey(s.Remove(0, 1)))
-				        del[s.Remove(0, 1)] = true;
+				{
+			        del[s.Remove(0, 1)] = true;
+				}
 				else if(File.Exists(s)) {
 					Path = s; Console.WriteLine("...File found!: '" + Path + "'"); }
 				else
@@ -69,8 +71,10 @@ namespace imagledit
 			for(int i = int.Parse(file[file.Count - 2].Split(' ')[0]); i < file.Count - 2; i++)
 			{
 				string[] splt = file[i].Split(' ');
+				//Console.WriteLine(string.Join(" | ", splt));
 				if(del.ContainsKey(splt[0]) && del[splt[0]])
 				{
+					//Console.WriteLine(del.ContainsKey(splt[0]) + "|" + del[splt[0]]);
 					del2.Add(int.Parse(splt[1]));
 					file = Remove(file, int.Parse(splt[2]), int.Parse(splt[3]));
 				}
@@ -81,7 +85,7 @@ namespace imagledit
 			Console.WriteLine("DONE!\nSave file...");
 			File.WriteAllLines(Path, file.ToArray());
 			Console.WriteLine("DONE!");
-			Thread.Sleep(5000);
+			Thread.Sleep(2000);
 		}
 	}
 }

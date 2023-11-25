@@ -38,7 +38,7 @@ namespace imaglc
         
         public static void Main(string[] args)
 		{
-        	Console.WriteLine("ImageL Compiler v0.12\nBy Etar125\n\nChecking arguments...");
+        	Console.WriteLine("ImagL Compiler v0.14\nBy Etar125\n\nChecking arguments...");
         	Dictionary<string, bool> use = new Dictionary<string, bool> { { "print", true }, { "set", true }, { "pause", true } };
         	string path = "main.png";
         	bool debug = true;
@@ -128,12 +128,12 @@ namespace imaglc
 			Console.WriteLine("Edit file...");
 			string gen = "";
 			for(int i = 0; i < use.Count; i++)
-				if(use.ElementAt(i).Value == true)
+				if(use.ElementAt(i).Value)
 					gen += " /" + use.ElementAt(i).Key;
 			Console.WriteLine("...Arguments done!");
 			a.StartInfo.FileName = @"imagledit";
 			a.StartInfo.Arguments = "imaglmod.cs" + gen;
-			Console.WriteLine("Start ImaglL Code Editor...");
+			Console.WriteLine("Start ImagL Code Editor...");
 			a.Start();
 			Console.WriteLine("...");
 			a.WaitForExit();
@@ -147,7 +147,7 @@ namespace imaglc
 			Console.WriteLine("Compiling...");
 			a.WaitForExit();
 			Console.WriteLine("DONE!");
-			Thread.Sleep(5000);
+			Thread.Sleep(2000);
 		}
 	}
 }

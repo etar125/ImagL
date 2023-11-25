@@ -32,7 +32,7 @@ namespace imagl
 	class Program
 	{
 		public static Command[] app = { };
-		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.08" } };
+		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.09" } };
 		public static string ConvertString(string str)
 		{
 			string result = "";
@@ -64,12 +64,10 @@ namespace imagl
 								throw new Exception();
 							}
 							str = str.Insert(i, vars[name]);
-							i += vars[name].Length;
 							break;
 						}
 					}
-					try { result += str[i]; }
-					catch {}
+					result += str[i];
 				}
 				catch(Exception ex) { return result + ex.Message; }
 			}
@@ -100,9 +98,9 @@ namespace imagl
 	}
 }
 /*
-set 20 88 95
-pause 19 86 88
-print 18 84 86
+set 20 86 93
+pause 19 84 86
+print 18 82 84
 
-101 105
+100 105
  */
