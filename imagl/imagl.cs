@@ -34,7 +34,7 @@ namespace imagl
 	class Program
 	{
 		public static Command[] app = { };
-		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.10" } };
+		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.11" } };
 		public static string ConvertString(string str)
 		{
 			string result = "";
@@ -102,14 +102,17 @@ namespace imagl
 						else
 							vars.Add(a.args[0], value);
 					}
+					else if(a.Cmnd == Command.CMS.Clear)
+						Console.Clear();
 				}
 			}
 		}
 	}
 }
 /*
+clear 22 103 105
 input 21 95 103
-set 20 86 93
+set 20 86 95
 pause 19 84 86
 print 18 82 84
 
