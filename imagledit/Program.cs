@@ -39,7 +39,7 @@ namespace imagledit
 		
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("ImageL Code Edit v0.01\nBy Etar125\n\nChecking arguments...");
+			Console.WriteLine("ImageL Code Edit v0.02\nBy Etar125\n\nChecking arguments...");
 			var handle = GetConsoleWindow();
 			foreach(string s in args)
 			{
@@ -64,13 +64,24 @@ namespace imagledit
 			List<string> file = new List<string> { };
 			foreach(string s in File.ReadAllLines(Path))
 				file.Add(s);
-			List<string> mod = file;
+			Console.WriteLine("DONE!\nEdit file...\nStep 1");
 			List<int> del2 = new List<int> { };
 			for(int i = int.Parse(file[file.Count - 2]); i < file.Count - 2; i++)
 			{
 				string[] splt = file[i].Split(' ');
-				
+				if(del.ContainsKey(splt[0]) && del[splt[0]])
+				{
+					del2.Add(int.Parse(splt[1]));
+					file = Remove(file, int.Parse(splt[2]), int.Parse(splt[3]));
+				}
 			}
+			Console.WriteLine("DONE!\nStep 2");
+			foreach(int s in del2)
+				file.RemoveAt(s);
+			Console.WriteLine("DONE!\nSave file...");
+			File.WriteAllLines(Path, file.ToArray());
+			Console.WriteLine("DONE!");
+			Thread.Sleep(5000);
 		}
 	}
 }
