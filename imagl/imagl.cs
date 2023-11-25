@@ -16,13 +16,15 @@ namespace imagl
 		
 		public enum CMS
 		{
-			Print, // +
-			Pause, // +
-			Set, // +
+			Print,
+			Pause,
+			Set,
 			Input, 
 			Clear,
 			Title,
-			Empty, // +
+			Label,
+			Goto,
+			Empty,
 		}
 		
 		public CMS Cmnd;
@@ -32,7 +34,7 @@ namespace imagl
 	class Program
 	{
 		public static Command[] app = { };
-		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.09" } };
+		public static Dictionary<string, string> vars = new Dictionary<string, string> { { "Version", "v0.10" } };
 		public static string ConvertString(string str)
 		{
 			string result = "";
@@ -92,12 +94,21 @@ namespace imagl
 						else
 							vars.Add(a.args[0], a.args[1]);
 					}
+					else if(a.Cmnd == Command.CMS.Input)
+					{
+						string value = Console.ReadLine();
+						if(vars.ContainsKey(a.args[0]))
+						   vars[a.args[0]] = value;
+						else
+							vars.Add(a.args[0], value);
+					}
 				}
 			}
 		}
 	}
 }
 /*
+input 21 95 103
 set 20 86 93
 pause 19 84 86
 print 18 82 84
